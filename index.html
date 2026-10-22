@@ -7,6 +7,15 @@
     <meta name="description" content="Discover thousands of trendy fashion looks, elegant outfit ideas, and step-by-step styling guides to elevate your look.">
     <meta name="keywords" content="fashion, outfit, style, fashion inspo, outfit ideas, fashion trends, styling ideas">
     <meta name="robots" content="index, follow">
+    <script>
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var q = params.get('q');
+            if (q) {
+                window.location.replace('detail.html' + window.location.search);
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
