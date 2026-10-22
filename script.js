@@ -1,3 +1,8 @@
+(function() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('q')) return;
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     let allKeywords = [];
     let currentIndex = 0;
