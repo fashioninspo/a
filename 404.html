@@ -7,21 +7,41 @@
     <script>
         (function() {
             var currentPath = window.location.pathname;
-            var pathSegments = currentPath.split('/').filter(Boolean);
-            var keyword = pathSegments.pop(); 
-            
+            var search = window.location.search;
+            var params = new URLSearchParams(search);
+            var qParam = params.get('q');
+
+            if (/\/detail\.html$/.test(currentPath) && qParam) {
+                return;
+            }
+
+            if (qParam) {
+                var segments = currentPath.split('/').filter(Boolean);
+                var lastSeg = segments[segments.length - 1] || '';
+                if (lastSeg && lastSeg.indexOf('.') !== -1) {
+                    segments.pop();
+                }
+                var basePath = '/' + segments.join('/');
+                if (basePath === '/' || basePath === '') basePath = '';
+                var redirectUrl = basePath + '/detail.html' + search;
+                window.location.replace(redirectUrl);
+                return;
+            }
+
+            var segs = currentPath.split('/').filter(Boolean);
+            var keyword = segs.pop();
+
             if (keyword) {
                 keyword = keyword.replace(/\.html$/, '');
-                var queryParams = window.location.search;
-                var basePath = '/' + pathSegments.join('/');
-                if (basePath === '/') basePath = '';
-                
-                var redirectUrl = basePath + '/detail.html?q=' + encodeURIComponent(keyword);
-                
-                if (queryParams) {
-                    redirectUrl += '&' + queryParams.substring(1);
+                var basePath2 = '/' + segs.join('/');
+                if (basePath2 === '/') basePath2 = '';
+
+                var redirectUrl2 = basePath2 + '/detail.html?q=' + encodeURIComponent(keyword);
+
+                if (search) {
+                    redirectUrl2 += '&' + search.substring(1);
                 }
-                window.location.replace(redirectUrl);
+                window.location.replace(redirectUrl2);
             } else {
                 window.location.replace('/index.html');
             }
