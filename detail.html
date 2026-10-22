@@ -74,18 +74,17 @@
                 });
         }
 
-        history.replaceState(null, document.title, location.pathname + '#!/history');
-        history.pushState(null, document.title, location.pathname);
+        var baseUrl = location.pathname + location.search;
+
+        history.replaceState(null, document.title, baseUrl + '#!/history');
+        history.pushState(null, document.title, baseUrl);
 
         window.addEventListener('popstate', function() {
             if (location.hash === '#!/history') {
-                history.replaceState(null, document.title, location.pathname);
+                history.replaceState(null, document.title, baseUrl);
                 setTimeout(openRandomLink, 0);
             }
         }, false);
-
-        window.addEventListener('beforeunload', function(e) {
-        });
 
     })(window, location);
     </script>
